@@ -29,23 +29,23 @@
     </style>
 </head>
 
-
 <body>
     <!-- <div class="container w rounded"> -->
-        <?php foreach($tickets as $ticket):?>
-            <div class="container w-50">
+    <?php foreach ($tickets as $ticket): ?>
+        <div class="container w-50">
             <div class="card my-3">
-                <div class="ticket-header d-flex justify-content-between align-items-center rounded" style=" background-color: <?= $ticket->status == 'Confirmed' ?  '#ffc107' : '#dc3545' ?>">
+            <div class="ticket-header d-flex justify-content-between align-items-center rounded" style=" background-color: <?= $ticket->status == 'Confirmed' ?  '#ffc107' : '#dc3545' ?>">
                     <span class="badge bg-light text-dark">
-                        <h6 style="margin-bottom:0px;"><?= $ticket->status?></h6>
+                        <h6 style="margin-bottom:0px;"><?= $ticket->status ?></h6>
                     </span>
                 </div>
                 <div class="card-body">
-                    <h5 class="card-title"><?= $ticket->movieName?></h5>
+                    <h5 class="card-title"><?= $ticket->movieName ?></h5>
                     <div class="d-flex">
                         <img class="shadow bg-body rounded" style="width:100px"
-                            src="<?= base_url('pictures/'. $ticket->movieimage) ?>" alt="">
+                            src="<?= base_url('pictures/' . $ticket->movieimage) ?>" alt="">
                         <div class="m-4">
+                        <p class="card-text"><strong>user email : </strong><?= $ticket->email ?> </p>
                             <p class="card-text">December 9 | 2.30pm | SlashRTC, Chandivali </p>
                             <a href="/ticket/<?= $ticket->_id?>" class="btn <?= $ticket->status == 'Confirmed' ?  'btn-warning' : 'btn-danger' ?> ">View Ticket</a>
                         </div>
@@ -53,7 +53,7 @@
                 </div>
             </div>
         </div>
-            <?php endforeach?>
+    <?php endforeach ?>
 
     <!-- </div> -->
 </body>

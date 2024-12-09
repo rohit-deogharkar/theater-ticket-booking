@@ -39,3 +39,5 @@ $routes->post('/postlogin', 'UserController::postloginform');
 
 $routes->get('/showmytickets/(:any)', "Home::getmytickets/$1");
 
+$routes->get('/alltickets', 'Home::alltickets');
+

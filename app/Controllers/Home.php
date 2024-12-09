@@ -249,6 +249,24 @@ class Home extends BaseController
 
         $response = $client->get('usertickets/' . $id);
 
-        return view('mytickets');
+        $data = json_decode($response->getBody());
+
+        // print_r($data);
+
+        return view('mytickets' , ['tickets'=> $data->data]);
+    }
+
+    public function alltickets(){
+        $client = service('curlrequest', [
+            'baseURI' => 'http://localhost:4000/',
+        ]);
+
+        $response = $client->get('alltickets');
+
+        $data = json_decode($response->getBody());
+
+        // print_r($data);
+
+        return view('alltickets', ['tickets'=> $data->data]);
     }
 }
