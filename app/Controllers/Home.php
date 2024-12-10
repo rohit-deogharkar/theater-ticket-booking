@@ -318,6 +318,7 @@ class Home extends BaseController
 
     public function unauthorized()
     {
-        return view('unauthorized');
+        return view('navbar')
+        .view('unauthorized');
     }
 }
