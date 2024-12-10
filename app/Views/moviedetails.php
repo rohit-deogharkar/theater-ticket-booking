@@ -8,7 +8,6 @@
 
     <link rel="stylesheet" href="<?= base_url('/css/bootstrap.min.css') ?>">
 
-    <script src="<?= base_url('/js/bootstrap.min.js') ?>"></script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -22,19 +21,16 @@
         body {
             font-family: 'Parkinsans', sans-serif;
         }
+
+        a {
+            text-decoration: none;
+            color: black;
+        }
     </style>
 </head>
 
 <body>
-    <nav class="navbar bg-light py-2 d-flex">
-        <div class="container-fluid px-3">
-            <span class="navbar-brand mb-0 h1 p-3">TicketMax</span>
-            <button><a href="/upload-form" style="text-decoration: none">Add Movie</a></button>
-        </div>
-        <div>
-
-        </div>
-    </nav>
+    
     <div class="d-flex justify-content-center" style="margin-left:60px;">
         <img class="img-thumbnail" style="height:500px; margin: 60px 0px; margin-left:90px"
             src="<?= base_url('pictures/' . $movie->imagename) ?>" alt="">
@@ -68,9 +64,14 @@
         </div>
     </div>
     <div class="book-ticket d-flex items-center">
-        <button class="mx-auto btn btn-success fs-5"><a href="/booking/<?= $movie->_id ?>"
-                style="text-decoration:none; color:white">Book Ticket</a></button>
+        <?= session('role') == 'user' ? "<button class=\"mx-auto btn btn-success fs-5\"><a href=\"/booking/$movie->_id\" style=\"text-decoration:none; color:white\">Book Ticket</a></button>" : ' ' ?>
     </div>
 </body>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+    integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
+    crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
+    integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V"
+    crossorigin="anonymous"></script>
 
 </html>

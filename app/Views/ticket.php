@@ -8,11 +8,12 @@
 
     <link rel="stylesheet" href="<?= base_url('/css/bootstrap.min.css') ?>">
 
-    <script src="<?= base_url('/js/bootstrap.min.js') ?>"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Parkinsans:wght@300..800&display=swap" rel="stylesheet">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css"
+        integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
         body {
             background-color: #f4f4f4;
@@ -50,14 +51,37 @@
             max-width: 150px;
             margin-top: 15px;
         }
+
+        a {
+            text-decoration: none;
+            color: black;
+        }
     </style>
 </head>
 
 <body>
     <nav class="navbar bg-light py-2 d-flex">
-        <div class="container-fluid px-3">
-            <span class="navbar-brand mb-0 h1 p-3">TicketMax</span>
-            <?= session('data') ? " <button> <a href=\"/logout\">Logout</a></button>" : "" ?>
+        <div class="container px-3">
+            <span class="navbar-brand mb-0 h1 p-3 flex-grow-1">
+                <h4>TicketMax</h4>
+            </span>
+            <button class="btn btn-light"><a href="/"><i class="fa-solid fa-house"></i> Home</a></button>
+            <div class="dropdown border-0">
+                <button class="btn dropdown-toggle border-0 fs-6" type="button" data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                    <span class="fs-6" style="text-align:center; font-size:5px;">
+                        <p style="margin:0px"><i class="fa-solid fa-user fs-6"></i></p>
+                        <span  style="font-size:14px;"><?= session('data')->email ?></span>
+                    </span>
+                </button>
+                <ul class="dropdown-menu text-center">
+                    <li class="p-1"> <a href="/showmytickets/<?= session('data')->_id ?>">My
+                            Tickets</a></li>
+                    <li class="p-1"><?= session('data') ? "<a href=\"/logout\" >Logout</a>" : "" ?>
+                    </li>
+                </ul>
+            </div>
+            <?= session('role') == 'admin' ? "<button><a href=\"/upload-form\" style=\"text-decoration:none\">Add Movie</a></button>" : "" ?>
         </div>
         <div>
         </div>
@@ -77,7 +101,7 @@
                     <div class="col-8">
                         <h2 class="mb-3"><?= $ticket->movieName ?></h2>
                         <div class="ticket-details">
-                        <div class="row mb-2">
+                            <div class="row mb-2">
                                 <div class="col-6">
                                     <strong>Email: </strong>
                                     <p class="mb-0"><?= $ticket->email ?></p>
@@ -152,7 +176,13 @@
     </div>
 
     <!-- Bootstrap 5.2 JS Bundle (optional) -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/js/bootstrap.bundle.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+        integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
+        integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V"
+        crossorigin="anonymous"></script>
 
     <script>
 
@@ -160,6 +190,7 @@
             alert("<?= session()->getFlashdata('cancellationSuccess') ?>");
         <?php endif; ?>
 
+        // addEventListener('popstate',()=>{location.reload()})
 
     </script>
 </body>

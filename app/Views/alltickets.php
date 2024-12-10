@@ -26,36 +26,65 @@
             color: white;
             padding: 10px;
         }
+
+        a {
+            text-decoration: none;
+            color: black;
+        }
     </style>
 </head>
 
 <body>
-    <!-- <div class="container w rounded"> -->
-    <?php foreach ($tickets as $ticket): ?>
-        <div class="container w-50">
-            <div class="card my-3">
-            <div class="ticket-header d-flex justify-content-between align-items-center rounded" style=" background-color: <?= $ticket->status == 'Confirmed' ?  '#ffc107' : '#dc3545' ?>">
-                    <span class="badge bg-light text-dark">
-                        <h6 style="margin-bottom:0px;"><?= $ticket->status ?></h6>
-                    </span>
-                </div>
-                <div class="card-body">
-                    <h5 class="card-title"><?= $ticket->movieName ?></h5>
-                    <div class="d-flex">
-                        <img class="shadow bg-body rounded" style="width:100px"
-                            src="<?= base_url('pictures/' . $ticket->movieimage) ?>" alt="">
-                        <div class="m-4">
-                        <p class="card-text"><strong>user email : </strong><?= $ticket->email ?> </p>
-                            <p class="card-text">December 9 | 2.30pm | SlashRTC, Chandivali </p>
-                            <a href="/ticket/<?= $ticket->_id?>" class="btn <?= $ticket->status == 'Confirmed' ?  'btn-warning' : 'btn-danger' ?> ">View Ticket</a>
+
+    <div class="d-flex mt-3 flex-row">
+
+        <div class="container rounded w-75">
+            <?php if (count($tickets)): ?>
+                <?php foreach ($tickets as $ticket): ?>
+                    <div class="container w-75">
+                        <div class="card my-3" style="height:200px">
+                            <div class="ticket-header d-flex justify-content-between align-items-center rounded"
+                                style=" background-color: <?= $ticket->status == 'Confirmed' ? '#ffc107' : '#dc3545' ?>">
+                                <span class="badge bg-light text-dark">
+                                    <h6 style="margin-bottom:0px;"><?= $ticket->status ?></h6>
+                                </span>
+                            </div>
+                            <div class="card-body py-2">
+                                <h5 class="card-title my-0"><?= $ticket->movieName ?></h5>
+                                <div class="d-flex">
+                                    <img class="shadow bg-body rounded" style="width:70px; height:100px; margin-top:5px;"
+                                        src="<?= base_url('pictures/' . $ticket->movieimage) ?>" alt="">
+                                    <div class="ms-3 mt-1">
+                                        <p class="card-text my-0">user email : <?= $ticket->email ?> </p>
+                                        <p class="card-text my-0">December 9 | 2.30pm | SlashRTC, Chandivali </p>
+                                        <a href="/ticket/<?= $ticket->_id ?>"
+                                            class="btn <?= $ticket->status == 'Confirmed' ? 'btn-warning' : 'btn-danger' ?> ">View
+                                            Ticket</a>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-    <?php endforeach ?>
+                <?php endforeach ?>
+            <?php else: ?>
+                <h3 class="text-center">No Tickets Have Been Booked</h3>
+            <?php endif; ?>
 
-    <!-- </div> -->
+        </div>
+        <div class="border rounded p-3" style="position: fixed; height:200px; right:20px">
+            <p><span>Confirmed Tickets : </span><span><strong><?= $quantities['confirmedtickets'] ?></strong></span></p>
+            <p><span>Cancelled Tickets : </span><span><strong><?= $quantities['cancelledtickets'] ?></strong></span></p>
+            <p><span>Total Tickets : </span><span><strong><?= $quantities['totaltickets'] ?></strong></span></p>
+            <p><span>Total Revenue : Rs. </span><span><strong><?= $quantities['total_revenue'] ?>/-</strong></span></p>
+        </div>
+    </div>
+
 </body>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+    integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
+    crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
+    integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V"
+    crossorigin="anonymous"></script>
 
 </html>

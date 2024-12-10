@@ -8,57 +8,34 @@ use CodeIgniter\Router\RouteCollection;
 
 //main home card route
 
+//authenctication/logout routes
+
 $routes->get('/login', 'UserController::getloginform');
 $routes->post('/postlogin', 'UserController::postloginform');
-
-$routes->get('/', 'Home::getMovie');
-$routes->get('pictures/(:any)', 'Home::viewImage/$1');
-$routes->get('/logout', "UserController::logout");
 $routes->get('/register', 'UserController::getregisterform');
 $routes->post('/postregister', 'UserController::postregisterform');
-$routes->get('/movie-details/(:segment)', 'Home::getMovieDetails/$1');
+$routes->get('/logout', "UserController::logout");
+$routes->get('/unauthorized', 'Home::unauthorized');
 
+//common routes
 
-$routes->get('/unauthrorized', 'Home::unauthorized');
-$routes->get('/booking/(:any)', 'Home::booking/$1');
-$routes->get('/postbooking/(:any)/(:any)/(:any)', "Home::postBooking/$1/$2/$3");
+$routes->get('/', 'Home::getMovie', ['filter' => 'rolecheck:user,admin']);
+$routes->get('pictures/(:any)', 'Home::viewImage/$1', ['filter' => 'rolecheck:user,admin']);
+$routes->get('/movie-details/(:segment)', 'Home::getMovieDetails/$1', ['filter' => 'rolecheck:user,admin']);
+$routes->get('/ticket/(:any)', 'Home::getTicket/$1', ['filter' => 'rolecheck:user,admin']);
 
-$routes->get('/ticket/(:any)', 'Home::getTicket/$1');
-$routes->get('/showmytickets/(:any)', "Home::getmytickets/$1");
+//user specific routes
 
-$routes->get('/cancel-ticket/(:any)', "Home::cancelTicket/$1");
-$routes->get('upload-form', 'Home::uploadMovieForm', ['filter' => 'checkrole:admin']);          // Add this line.
-$routes->post('upload-movie', 'Home::uploadData', ['filter' => 'checkrole:admin']);            // Add this line
+$routes->get('/booking/(:any)', 'Home::booking/$1', ['filter' => 'rolecheck:user']);
+$routes->get('/postbooking', "Home::postBooking", ['filter' => 'rolecheck:user']);
+$routes->get('/showmytickets/(:any)', "Home::getmytickets/$1", ['filter' => 'rolecheck:user']);
+$routes->get('/cancel-ticket/(:any)', "Home::cancelTicket/$1", ['filter' => 'rolecheck:user']);
 
-$routes->get('/updateMovieDetails/(:segment)', 'Home::updateMovieDetails/$1');
-$routes->post('/postupdate/(:segment)', 'Home::postUpdate/$1');
+//admin specific routes
 
-$routes->get('/deletemovie/(:segment)', "Home::deleteMovie/$1");
-
-
-
-// $routes->group(
-//     'admin',
-//     ['filter' => 'rolecheck:admin'],
-//     function ($routes) {
-
-
-//         //user routes
-
-//     }
-// );
-
-// $routes->group(
-//     'user',
-//     ['filter' => 'rolecheck:admin,user'],
-//     function ($routes) {
-
-
-
-//         //user routes
-
-//     }
-// );
-
-$routes->get('/alltickets', 'Home::alltickets');
+$routes->get('upload-form', 'Home::uploadMovieForm', ['filter' => 'rolecheck:admin']);
+$routes->get('/updateMovieDetails/(:segment)', 'Home::updateMovieDetails/$1', ['filter' => 'rolecheck:admin']);
+$routes->post('/postupdate/(:segment)', 'Home::postUpdate/$1', ['filter' => 'rolecheck:admin']);
+$routes->get('/deletemovie/(:segment)', "Home::deleteMovie/$1", ['filter' => 'rolecheck:admin']);
+$routes->get('/alltickets', 'Home::alltickets', ['filter' => 'rolecheck:admin']);
 

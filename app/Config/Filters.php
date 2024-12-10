@@ -71,9 +71,7 @@ class Filters extends BaseFilters
     public array $globals = [
         'before' => [
             'rolecheck' => [
-                // 'admin',
-                // 'user',
-                'except' => ['login', 'register', 'postlogin', 'postregister', 'unauthorized']
+                'except' => ['login', 'register', 'postlogin', 'postregister', 'unauthorized', 'logout']
             ]
         ],
         'after' => [

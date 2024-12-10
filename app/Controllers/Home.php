@@ -10,7 +10,8 @@ class Home extends BaseController
     }
     public function uploadMovieForm()
     {
-        return view('upload_form');
+        return view('navbar') 
+        . view('upload_form');
     }
 
     public function getMovie()
@@ -23,7 +24,8 @@ class Home extends BaseController
 
         $data = json_decode($response->getBody());
 
-        return view('home', ['movies' => $data]);
+        return view('navbar')
+            . view('home', ['movies' => $data]);
     }
 
     public function uploadData()
@@ -82,7 +84,8 @@ class Home extends BaseController
 
         $data = json_decode($response->getBody());
 
-        return view('moviedetails', ['movie' => $data]);
+        return view('navbar')
+            . view('moviedetails', ['movie' => $data]);
 
     }
 
@@ -96,7 +99,8 @@ class Home extends BaseController
 
         $data = json_decode($response->getBody());
 
-        return view('update_form', ['movie' => $data]);
+        return view('navbar')
+            . view('update_form', ['movie' => $data]);
     }
 
     public function postUpdate($id)
@@ -169,8 +173,12 @@ class Home extends BaseController
         return view('bookingseats', ['seats' => $emptySeats, 'reservedSeats' => $reservedSeats, 'id' => $id]);
     }
 
-    public function postBooking($id, $seats, $price)
+    public function postBooking()
     {
+        $id = $this->request->getGet('movieId');
+        $seats = $this->request->getGet('bookedSeats');
+        $price = $this->request->getGet('price');
+
         $selectedseats = explode("_", $seats);
 
         $client = service('curlrequest', [
@@ -240,6 +248,7 @@ class Home extends BaseController
 
         session()->set('ticketStatus', $data->data->status);
 
+
         return view('ticket', ['ticket' => $data->data]);
 
         // print_r(session()->get('data'));
@@ -253,10 +262,48 @@ class Home extends BaseController
 
         $response = $client->get('usertickets/' . $id);
 
-        return view('mytickets');
+        $data = json_decode($response->getBody());
+
+        // print_r($data);
+
+        return view('navbar')
+            . view('mytickets', ['tickets' => $data->data]);
     }
 
-    public function cancelTicket($id){
+    public function alltickets()
+    {
+        $client = service('curlrequest', [
+            'baseURI' => 'http://localhost:4000/',
+        ]);
+
+        $response = $client->get('alltickets');
+
+        $data = json_decode($response->getBody());
+
+        // print_r($data);
+
+        $quantities['totaltickets'] = 0;
+        $quantities['confirmedtickets'] = 0;
+        $quantities['cancelledtickets'] = 0;
+        $quantities['total_revenue'] = 0;
+
+        foreach ($data->data as $datas) {
+            $quantities['totaltickets'] += 1;
+            if ($datas->status == 'Confirmed') {
+                $quantities['confirmedtickets'] += 1;
+                $quantities['total_revenue'] += $datas->price;
+            }
+            if ($datas->status == 'Cancelled') {
+                $quantities['cancelledtickets'] += 1;
+            }
+        }
+
+        return view('navbar') 
+        .view('alltickets', ['tickets' => $data->data, 'quantities' => $quantities]);
+    }
+
+    public function cancelTicket($id)
+    {
         $client = service('curlrequest', [
             'baseURI' => 'http://localhost:4000/',
         ]);
@@ -265,11 +312,12 @@ class Home extends BaseController
 
         $data = json_decode($response->getBody());
 
-        return redirect()->to('ticket/'. $id)->with('cancellationSuccess', 'Your Ticket Cancelled Succesfully!');
+        return redirect()->to('ticket/' . $id)->with('cancellationSuccess', 'Your Ticket Cancelled Succesfully!');
     }
 
 
-    public function unauthorized(){
+    public function unauthorized()
+    {
         return view('unauthorized');
     }
 }

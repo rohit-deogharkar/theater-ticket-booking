@@ -29,13 +29,12 @@ class RoleCheck implements FilterInterface
 
         if (!$session->has('data')) {
             return redirect()->to('/login');
-        } 
-        // else {
-        //     $userRole = $session->get('role');
-        //     if (!in_array($userRole, $arguments)) {
-        //         return redirect()->to('/unauthrorized');
-        //     }
-        // }
+        }
+        
+        $userRole = $session->get('role');
+        if (!in_array($userRole, $arguments)) {
+            return redirect()->to('/unauthorized');
+        }
 
     }
 
