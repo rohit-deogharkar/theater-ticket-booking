@@ -253,7 +253,6 @@ class Home extends BaseController
 
         $response = $client->get('usertickets/' . $id);
 
-        
         return view('mytickets');
     }
 

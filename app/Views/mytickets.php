@@ -21,17 +21,23 @@
         body {
             font-family: 'Parkinsans', sans-serif;
         }
+
+        .ticket-header {
+            color: white;
+            padding: 10px;
+        }
     </style>
 </head>
+
 
 <body>
     <div class="container w-50">
         <div class="card my-3">
             <div class="card-header">
-            Confirmed
+                Featured
             </div>
             <div class="card-body">
-                <h5 class="card-title">Movie Name</h5>
+                <h5 class="card-title">Special title treatment</h5>
                 <div class="d-flex">
                     <img class="shadow p-3 mb-5 bg-body rounded" style="width:100px"
                         src="<?= base_url('images/movie1.jpg') ?>" alt="">
@@ -42,8 +48,9 @@
                 </div>
             </div>
         </div>
+            <?php endforeach?>
 
-    </div>
+    <!-- </div> -->
 </body>
 
 </html>

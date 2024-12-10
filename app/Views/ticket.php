@@ -77,6 +77,12 @@
                     <div class="col-8">
                         <h2 class="mb-3"><?= $ticket->movieName ?></h2>
                         <div class="ticket-details">
+                        <div class="row mb-2">
+                                <div class="col-6">
+                                    <strong>Email: </strong>
+                                    <p class="mb-0"><?= $ticket->email ?></p>
+                                </div>
+                            </div>
                             <div class="row mb-2">
                                 <div class="col-6">
                                     <strong>Date:</strong>

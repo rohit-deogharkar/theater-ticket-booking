@@ -60,3 +60,5 @@ $routes->get('/deletemovie/(:segment)', "Home::deleteMovie/$1");
 //     }
 // );
 
+$routes->get('/alltickets', 'Home::alltickets');
+
