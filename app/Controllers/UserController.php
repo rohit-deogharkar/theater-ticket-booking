@@ -78,6 +78,7 @@ class UserController extends BaseController
 
             if($result->message == 'success'){
                 session()->set('data',$result->data);
+                session()->set('role', $result->data->role);
                 return redirect()->to('/');
             }
             else{
@@ -86,7 +87,11 @@ class UserController extends BaseController
             
         }
     }
-}
 
+    public function logout(){
+        session()->destroy();
+        return redirect()->to('/login');
+    }
+}
 
 ?>

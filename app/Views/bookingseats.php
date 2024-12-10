@@ -17,6 +17,10 @@
         integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
+
+        body{
+            font-family: 'Parkinsans', sans-serif;
+        }
         .white {
             background-color: white;
             border: none;

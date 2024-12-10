@@ -30,11 +30,11 @@
     <nav class="navbar bg-light py-2 d-flex">
         <div class="container-fluid px-3">
             <span class="navbar-brand mb-0 h1 p-3">TicketMax</span>
-            <button><a href="/upload-form" style="text-decoration:none">Add Movie</a></button>
-            <button> <a href="/showmytickets/<?= session('data')->_id?>">My Tickets</a></button>
+            <?= session('role') == 'admin' ? "<button><a href=\"/upload-form\" style=\"text-decoration:none\">Add Movie</a></button>" : "" ?>
+            <button> <a href="/showmytickets/<?= session('data')->_id ?>">My Tickets</a></button>
+            <?= session('data') ? " <button> <a href=\"/logout\">Logout</a></button>" : "" ?>
         </div>
         <div>
-
         </div>
     </nav>
     <div class="mx-5 mt-4 d-flex justify-content-between flex-wrap">

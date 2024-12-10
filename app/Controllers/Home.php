@@ -238,7 +238,11 @@ class Home extends BaseController
 
         $data = json_decode($response->getBody());
 
+        session()->set('ticketStatus', $data->data->status);
+
         return view('ticket', ['ticket' => $data->data]);
+
+        // print_r(session()->get('data'));
     }
 
     public function getmytickets($id)
@@ -249,6 +253,24 @@ class Home extends BaseController
 
         $response = $client->get('usertickets/' . $id);
 
+        
         return view('mytickets');
+    }
+
+    public function cancelTicket($id){
+        $client = service('curlrequest', [
+            'baseURI' => 'http://localhost:4000/',
+        ]);
+
+        $response = $client->patch('cancel-ticket/' . $id);
+
+        $data = json_decode($response->getBody());
+
+        return redirect()->to('ticket/'. $id)->with('cancellationSuccess', 'Your Ticket Cancelled Succesfully!');
+    }
+
+
+    public function unauthorized(){
+        return view('unauthorized');
     }
 }

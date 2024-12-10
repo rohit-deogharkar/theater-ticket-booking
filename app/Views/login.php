@@ -25,6 +25,15 @@
 </head>
 
 <body>
+
+    <nav class="navbar bg-light py-2 d-flex">
+        <div class="container-fluid px-3">
+            <span class="navbar-brand mb-0 h1 p-3">TicketMax</span>
+            <?= session('data') ? " <button> <a href=\"/logout\">Logout</a></button>" : "" ?>
+        </div>
+        <div>
+        </div>
+    </nav>
     <div class="container w-25 shadow p-3 bg-body rounded" style="margin-top:180px">
         <form action="/postlogin" method="post">
             <div class="mb-3 mt-2 text-center">
@@ -32,18 +41,18 @@
             </div>
             <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label">Email address</label>
-                <input type="email" name="email" class="form-control" value="<?= old('email')?>">
+                <input type="email" name="email" class="form-control" value="<?= old('email') ?>">
             </div>
             <div class="mb-3">
                 <label for="exampleInputPassword1" class="form-label">Password</label>
-                <input type="text" name="password" class="form-control" value="<?= old('password')?>">
+                <input type="text" name="password" class="form-control" value="<?= old('password') ?>">
             </div>
             <div class="erromessage text-center text-danger">
                 <p><?= session()->getFlashdata('requiredfieldmessage') ?></p>
                 <p><?= session()->getFlashdata('invalidloginmessage') ?></p>
             </div>
             <div class="container text-center w-3">
-            <input class="btn btn-primary" type="submit">
+                <input class="btn btn-primary" type="submit">
         </form>
     </div>
 </body>

@@ -54,13 +54,20 @@
 </head>
 
 <body>
+    <nav class="navbar bg-light py-2 d-flex">
+        <div class="container-fluid px-3">
+            <span class="navbar-brand mb-0 h1 p-3">TicketMax</span>
+            <?= session('data') ? " <button> <a href=\"/logout\">Logout</a></button>" : "" ?>
+        </div>
+        <div>
+        </div>
+    </nav>
     <div class="container ">
         <div class="ticket-container border rounded-5">
             <div class="ticket-header d-flex justify-content-between align-items-center">
                 <h3 class="mb-0">Movie Ticket</h3>
-                <span class="badge bg-light text-dark">Confirmed</span>
+                <span class="badge bg-light text-dark"> <?= $ticket->status ?></span>
             </div>
-
             <div class="ticket-body">
                 <div class="row">
                     <div class="col-4">
@@ -105,7 +112,7 @@
                                 </div>
                                 <div class="col-6">
                                     <strong>Price</strong>
-                                    <p class="mb-0">Rs. <?= $ticket->price?>/- </p>
+                                    <p class="mb-0">Rs. <?= $ticket->price ?>/- </p>
                                 </div>
                             </div>
                         </div>
@@ -127,11 +134,28 @@
                     </div>
                 </div>
             </div>
+            <?= $ticket->status == 'Confirmed' ?
+                "<div class=\"book-ticket d-flex items-center\">
+            <button onclick=\"confirmFunction()\" class=\"mx-auto btn btn-danger fs-5\"><a  href=\"/cancel-ticket/$ticket->_id\" style=\"text-decoration:none; color:white\">Cancel Ticket
+                </a></button>
+        </div>" : "";
+            ?>
+
         </div>
+
     </div>
 
     <!-- Bootstrap 5.2 JS Bundle (optional) -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+
+        <?php if (session()->has('cancellationSuccess')): ?>
+            alert("<?= session()->getFlashdata('cancellationSuccess') ?>");
+        <?php endif; ?>
+
+
+    </script>
 </body>
 
 </html>

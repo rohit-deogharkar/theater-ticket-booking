@@ -49,24 +49,27 @@
                 <p><span class="card-subtitle text-muted">Description:</span> <span><?= $movie->description ?></span>
                 </p>
             </div>
-            <div class="operations mt-3">
-                <button class="btn btn-danger">
-                <a href="/deletemovie/<?= $movie->_id ?>" style="text-decoration:none; color:white">
-                    <i class="fa-solid fa-trash fs-5"></i>
-                    <span>Delete Movie</span>
-                    </a>
-                </button>
-                <button class="btn btn-warning" style="margin-left:10px">
-                    <a href="/updateMovieDetails/<?= $movie->_id ?>" style="text-decoration:none; color:black">
-                        <i class="fa-solid fa-pen-to-square"></i>
-                        <span>Update Movie</span>
-                    </a>
-                </button>
-            </div>
+            <?php if (session('role') == 'admin'): ?>
+                <div class="operations mt-3">
+                    <button class="btn btn-danger">
+                        <a href="/deletemovie/<?= $movie->_id ?>" style="text-decoration:none; color:white">
+                            <i class="fa-solid fa-trash fs-5"></i>
+                            <span>Delete Movie</span>
+                        </a>
+                    </button>
+                    <button class="btn btn-warning" style="margin-left:10px">
+                        <a href="/updateMovieDetails/<?= $movie->_id ?>" style="text-decoration:none; color:black">
+                            <i class="fa-solid fa-pen-to-square"></i>
+                            <span>Update Movie</span>
+                        </a>
+                    </button>
+                </div>
+            <?php endif ?>
         </div>
     </div>
     <div class="book-ticket d-flex items-center">
-        <button class="mx-auto btn btn-success fs-5"><a href="/booking/<?= $movie->_id?>" style="text-decoration:none; color:white">Book Ticket</a></button>
+        <button class="mx-auto btn btn-success fs-5"><a href="/booking/<?= $movie->_id ?>"
+                style="text-decoration:none; color:white">Book Ticket</a></button>
     </div>
 </body>
 

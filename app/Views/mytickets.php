@@ -28,10 +28,10 @@
     <div class="container w-50">
         <div class="card my-3">
             <div class="card-header">
-                Featured
+            Confirmed
             </div>
             <div class="card-body">
-                <h5 class="card-title">Special title treatment</h5>
+                <h5 class="card-title">Movie Name</h5>
                 <div class="d-flex">
                     <img class="shadow p-3 mb-5 bg-body rounded" style="width:100px"
                         src="<?= base_url('images/movie1.jpg') ?>" alt="">
