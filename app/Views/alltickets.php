@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>All Tickets</title>
     <link rel="stylesheet" href="<?= base_url('/css/bootstrap.min.css') ?>">
 
     <script src="<?= base_url('/js/bootstrap.min.js') ?>"></script>
@@ -71,7 +71,7 @@
             <?php endif; ?>
 
         </div>
-        <div class="border rounded p-3" style="position: fixed; height:200px; right:20px">
+        <div class="border rounded p-3" style="position: fixed; height:200px; right:20px; margin-top:16px">
             <p><span>Confirmed Tickets : </span><span><strong><?= $quantities['confirmedtickets'] ?></strong></span></p>
             <p><span>Cancelled Tickets : </span><span><strong><?= $quantities['cancelledtickets'] ?></strong></span></p>
             <p><span>Total Tickets : </span><span><strong><?= $quantities['totaltickets'] ?></strong></span></p>

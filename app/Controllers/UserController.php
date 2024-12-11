@@ -4,7 +4,8 @@ namespace App\Controllers;
 
 class UserController extends BaseController
 {
-    public function __construct(){
+    public function __construct()
+    {
         $session = \Config\Services::session();
     }
     public function getregisterform()
@@ -41,13 +42,18 @@ class UserController extends BaseController
 
             $result = json_decode($response->getBody());
 
-            print_r($result);
+            // print_r($result);
+            return redirect()->to('/login');
         }
     }
 
     public function getloginform()
     {
-        return view('login');
+        if (session()->has('data')) {
+            return redirect()->to('/');
+        } else {
+            return view('login');
+        }
     }
 
     public function postloginform()
@@ -76,19 +82,19 @@ class UserController extends BaseController
 
             $result = json_decode($response->getBody());
 
-            if($result->message == 'success'){
-                session()->set('data',$result->data);
+            if ($result->message == 'success') {
+                session()->set('data', $result->data);
                 session()->set('role', $result->data->role);
                 return redirect()->to('/');
-            }
-            else{
+            } else {
                 return redirect()->back()->withInput()->with('invalidloginmessage', 'Invalid credentials');
             }
-            
+
         }
     }
 
-    public function logout(){
+    public function logout()
+    {
         session()->destroy();
         return redirect()->to('/login');
     }

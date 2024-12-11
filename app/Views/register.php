@@ -33,7 +33,7 @@
         <div>
         </div>
     </nav>
-    <div class="container w-25 shadow p-3 bg-body rounded" style="margin-top:180px">
+    <div class="container w-25 shadow p-3 bg-body rounded" style="margin-top:100px">
         <form action="/postregister" method="post">
             <div class="mb-3 mt-2 text-center">
                 <h3>Registeration</h3>
@@ -57,6 +57,7 @@
             <div class="container text-center w-3">
                 <input class="btn btn-primary" type="submit">
         </form>
+        <p class="mt-3">Already have an account? <a style="text-decoration:none" href="/login">Login</a></p>
     </div>
 </body>
 

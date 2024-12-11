@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Update</title>
+    <title>Update - <?= $movie->title?></title>
 
     <link rel="stylesheet" href="<?= base_url('/css/bootstrap.min.css') ?>">
 
@@ -31,12 +31,12 @@
 </head>
 
 <body>
-    <div class="container mt-5">
+    <div class="container mt-3">
         <form class="w-50 m-auto" action="/postupdate/<?= (string) $movie->_id ?>" method="post"
             enctype="multipart/form-data">
             <div class="mb-3">
                 <label for="formFile" class="form-label">Upload Movie Poster</label>
-                <input name="imagefile" class="form-control" type="file" id="formFile">
+                <input name="imagefile" class="form-control" type="file" id="formFile" value="<?= $movie->imagename?>">
             </div>
             <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label">Movie Title</label>
@@ -53,7 +53,7 @@
             </div>
             <div class="mb-3">
                 <label for="exampleInputPassword1" class="form-label">Release Date</label>
-                <input type="date" name="releasedate" class="form-control" id="exampleInputPassword1">
+                <input type="date" name="releasedate" class="form-control" id="exampleInputPassword1" value="<?= $movie->releasedate?>">
             </div>
             <div class="mb-3">
                 <label for="exampleInputPassword1" class="form-label">Genre Name</label>
@@ -61,8 +61,8 @@
             </div>
             <div class="mb-3">
                 <label for="floatingTextarea">Movie Description</label>
-                <textarea class="form-control" name="description" id=" floatingTextarea"
-                    value="<?= $movie->description ?>"></textarea>
+                <input class="form-control" name="description" id=" floatingTextarea"
+                    value="<?= $movie->description ?>"></i>
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>

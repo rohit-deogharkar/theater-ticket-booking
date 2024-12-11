@@ -21,12 +21,32 @@ class Home extends BaseController
             'baseURI' => 'http://localhost:4000/',
         ]);
 
+        $maintitle = $this->request->getGet('searchedMovie');
+        $title = ucwords(trim($maintitle));
+
+        $movie['title'] = $title;
+
+        if ($title) {
+            $response = $client->get('search-movie', [
+                'headers' => [
+                    'Content-Type' => 'application/json'
+                ],
+                'body' => json_encode($movie)
+            ]);
+
+            $data = json_decode($response->getBody());
+
+            return view('navbar')
+                . view('home', ['movies' => $data, 'tittle' => $maintitle]);
+        }
+
         $response = $client->get('getMovie');
 
         $data = json_decode($response->getBody());
 
         return view('navbar')
             . view('home', ['movies' => $data]);
+
     }
 
     public function uploadData()
@@ -44,7 +64,6 @@ class Home extends BaseController
             'director' => ucwords(trim($this->request->getPost('director'))),
             'language' => ucwords(trim($this->request->getPost('language')))
         ];
-
 
         $client = service('curlrequest', [
             'baseURI' => 'http://localhost:4000/',
@@ -150,28 +169,34 @@ class Home extends BaseController
         return redirect()->to('/');
     }
 
+
     public function booking($id)
     {
-        $emptySeats = [
-            'A' => [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-            'B' => [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-            'C' => [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-            'D' => [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-            'F' => [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-            'G' => [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-        ];
+        if (session()->has('ticketbooked')) {
+            session()->remove('ticketbooked');
+            return redirect()->to('/');
+        } else {
+            $emptySeats = [
+                'A' => [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+                'B' => [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+                'C' => [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+                'D' => [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+                'F' => [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+                'G' => [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+            ];
 
-        $client = service('curlrequest', [
-            'baseURI' => 'http://localhost:4000/',
-        ]);
+            $client = service('curlrequest', [
+                'baseURI' => 'http://localhost:4000/',
+            ]);
 
-        $response = $client->get('moviedetail/' . $id);
+            $response = $client->get('moviedetail/' . $id);
 
-        $data = json_decode($response->getBody());
+            $data = json_decode($response->getBody());
 
-        $reservedSeats = $data->reservedSeats;
+            $reservedSeats = $data->reservedSeats;
 
-        return view('bookingseats', ['seats' => $emptySeats, 'reservedSeats' => $reservedSeats, 'id' => $id]);
+            return view('bookingseats', ['seats' => $emptySeats, 'reservedSeats' => $reservedSeats, 'id' => $id]);
+        }
     }
 
     public function postBooking()
@@ -233,8 +258,9 @@ class Home extends BaseController
         ]);
 
         $ticketresponse = json_decode($response->getBody());
-
+        session()->set('ticketbooked', 'ticketbooked success');
         return redirect()->to('ticket/' . $ticketresponse->data->_id);
+
     }
 
     public function getTicket($id)
@@ -246,9 +272,6 @@ class Home extends BaseController
         $response = $client->get('get-ticket/' . $id);
 
         $data = json_decode($response->getBody());
-
-        session()->set('ticketStatus', $data->data->status);
-
 
         return view('navbar')
             . view('buttons/downloadticket', ['ticket' => $data->data])
@@ -337,6 +360,21 @@ class Home extends BaseController
         $dompdf->render();
         $dompdf->stream($data->data->movieName, ['Attachment' => false]);
 
+    }
+
+    public function userspecificseats($id)
+    {
+        $client = service('curlrequest', [
+            'baseURI' => 'http://localhost:4000/',
+        ]);
+
+        $response = $client->get('usertickets/' . $id);
+
+        $data = json_decode($response->getBody());
+
+        foreach($data->data as $datas){
+            echo $datas->movieName . "<br>";
+        }
     }
 
     public function unauthorized()

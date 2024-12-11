@@ -1,4 +1,4 @@
-<nav class="navbar bg-light py-2 d-flex">
+<nav class="navbar bg-light py-2 d-flex sticky-top">
     <div class="container px-3">
         <span class="navbar-brand mb-0 h1 p-3 flex-grow-1">
             <h4>TicketMax</h4>
@@ -13,15 +13,12 @@
                 </span>
             </button>
             <ul class="dropdown-menu text-center">
-                <li class="p-1"><?= session('role') == 'admin' ? "<strong>Admin</strong>" : "" ?></li>
-                <li class="p-1"> <?= session('role') == 'user' ? "<a href=\"/showmytickets/".session('data')->_id."\">My Tickets</a>" : " " ?></li>
-                        
+                <?= session('role') == 'admin' ? '<li class="p-1"><strong>Admin</strong></li>' : "" ?>
                 <li class="p-1">
-                    <?= session('role') == 'admin' ? "<a href=\"/upload-form\" style=\"text-decoration:none\">Add Movie</a>" : "" ?>
+                    <?= session('role') == 'user' ? "<a href=\"/showmytickets/" . session('data')->_id . "\">My Tickets</a>" : " " ?>
                 </li>
-                <li class="p-1">
-                    <?= session('role') == 'admin' ? "<a href=\"/alltickets\" style=\"text-decoration:none\">View All Tickets</a>" : "" ?>
-                </li>
+                <?= session('role') == 'admin' ? '<li class="p-1"><a href="/upload-form" style="text-decoration:none">Add Movie</a></li>' : "" ?>
+                <?= session('role') == 'admin' ? '<li class="p-1"><a href="/alltickets" style="text-decoration:none">View All Tickets</a></li>' : "" ?>
                 <li class="p-1"><?= session('data') ? "<a href=\"/logout\" >Logout</a>" : "" ?>
                 </li>
             </ul>

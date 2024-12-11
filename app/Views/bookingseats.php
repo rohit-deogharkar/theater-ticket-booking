@@ -32,7 +32,7 @@
             width: 50%;
             margin: auto;
             text-align: center;
-            margin-top: 100px;
+            margin-top: 50px;
         }
 
         a {
@@ -74,7 +74,7 @@
         </div>
     </nav>
     <div class="cancel m-3">
-    <button class="btn btn-danger"><a href="/"><i class="fa-solid fa-x"></i></a></button>
+        <button class="btn btn-danger"><a href="/"><i class="fa-solid fa-x"></i></a></button>
     </div>
 
     <div class="container-p shadow p-3 bg-body rounded">
@@ -92,6 +92,10 @@
             <?php endfor; ?>
             <br>
         <?php endfor; ?>
+    </div>
+    <p class=" w-50 text-center mt-2 mx-auto">all eyes this side</p>
+    <div class="container w-75 border mt-4 bg-secondary rounded-bottom">
+        <p></p>
     </div>
 
     <button class="btn btn-danger d-flex gap-2 font-bold submit" style="margin:auto; margin-top:40px">

@@ -35,19 +35,33 @@
 </head>
 
 <body>
-
-    <div class="mx-5 mt-4 d-flex justify-content-between flex-wrap">
-        <?php foreach ($movies as $movie): ?>
-            <div class="card mb-4" style="width: 18rem;" data-id="<?= $movie->_id ?>">
-                <img src="<?= base_url('pictures/' . $movie->imagename) ?>" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <div class="card-title">
-                        <h5><?= $movie->title ?></h5>
+    <div class="container my-3 m-auto w-25">
+        <form class="d-flex" action="">
+            <input type="text" class="form-control" placeholder="Enter Movie Name" name="searchedMovie"
+                value="<?= empty($tittle) ? "" : $tittle ?>">
+            <a class="my-auto" style="position:absolute; margin:225px;" href="/"><i
+                    style="margin-top: 13px; font-size:12px; color:grey" class="fa-solid fa-x"></i></a>
+            <span><button class="btn btn-primary ms-1">Search</button></span>
+        </form>
+    </div>
+    <div class="container mx-auto d-flex flex-wrap">
+        <?php if (count($movies) > 0): ?>
+            <?php foreach ($movies as $movie): ?>
+                <div class="card mb-4 mx-3" style="width: 18rem;" data-id="<?= $movie->_id ?>">
+                    <img src="<?= base_url('pictures/' . $movie->imagename) ?>" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <div class="card-title">
+                            <h5><?= $movie->title ?></h5>
+                        </div>
+                        <p class="card-text"><?= $movie->releasedate ?></p>
                     </div>
-                    <p class="card-text"><?= $movie->releasedate ?></p>
                 </div>
+            <?php endforeach; ?>
+        <?php else: ?>
+            <div class="container text-center mt-5">
+                <h3>No Movies Found!</h3>
             </div>
-        <?php endforeach; ?>
+        <?php endif; ?>
     </div>
 
 </body>

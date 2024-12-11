@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register</title>
+    <title>Login</title>
     <link rel="stylesheet" href="<?= base_url('/css/bootstrap.min.css') ?>">
 
     <script src="<?= base_url('/js/bootstrap.min.js') ?>"></script>
@@ -35,7 +35,7 @@
         </div>
     </nav>
     <div class="container w-25 shadow p-3 bg-body rounded" style="margin-top:180px">
-        <form action="/postlogin" method="post">
+        <form class="mb-3" action="/postlogin" method="post">
             <div class="mb-3 mt-2 text-center">
                 <h3>Login</h3>
             </div>
@@ -45,15 +45,16 @@
             </div>
             <div class="mb-3">
                 <label for="exampleInputPassword1" class="form-label">Password</label>
-                <input type="text" name="password" class="form-control" value="<?= old('password') ?>">
+                <input type="password" name="password" class="form-control" value="<?= old('password') ?>">
             </div>
             <div class="erromessage text-center text-danger">
                 <p><?= session()->getFlashdata('requiredfieldmessage') ?></p>
                 <p><?= session()->getFlashdata('invalidloginmessage') ?></p>
             </div>
-            <div class="container text-center w-3">
-                <input class="btn btn-primary" type="submit">
+            <div class="container text-center w-3 mb-2">
+                <input class="btn btn-primary" type="submit"><br>
         </form>
+        <p class="mt-3">Don't have an account? <a style="text-decoration:none" href="/register">Register</a></p>
     </div>
 </body>
 

@@ -44,7 +44,7 @@
             </td>
         </tr>
         <tr>
-            <td style="background-color: white; padding: 20px;">
+            <td style="background-color: <?= $ticket->status == 'Cancelled' ? '#B1F0F7' : 'white'?> ; padding: 20px;">
                 <table width="100%" cellpadding="0" cellspacing="0">
                     <tr>
                         <td width="33%" style="padding-right: 10px;">
@@ -105,6 +105,7 @@
             </td>
         </tr>
         <tr>
+        
 
         </tr>
     </table>
