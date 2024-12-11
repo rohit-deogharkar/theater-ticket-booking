@@ -16,6 +16,7 @@ $routes->get('/register', 'UserController::getregisterform');
 $routes->post('/postregister', 'UserController::postregisterform');
 $routes->get('/logout', "UserController::logout");
 $routes->get('/unauthorized', 'Home::unauthorized');
+$routes->get('/getpdf/(:any)', "Home::downloadpdf/$1", ['filter' => 'rolecheck:user,admin']);
 
 //common routes
 

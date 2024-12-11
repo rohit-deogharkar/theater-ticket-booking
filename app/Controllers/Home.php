@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Controllers;
+use Dompdf\Dompdf;
 
 class Home extends BaseController
 {
@@ -10,8 +11,8 @@ class Home extends BaseController
     }
     public function uploadMovieForm()
     {
-        return view('navbar') 
-        . view('upload_form');
+        return view('navbar')
+            . view('upload_form');
     }
 
     public function getMovie()
@@ -249,7 +250,10 @@ class Home extends BaseController
         session()->set('ticketStatus', $data->data->status);
 
 
-        return view('ticket', ['ticket' => $data->data]);
+        return view('navbar')
+            . view('buttons/downloadticket', ['ticket' => $data->data])
+            . view('ticket', ['ticket' => $data->data])
+            . view('buttons/cancelticket', ['ticket' => $data->data]);
 
         // print_r(session()->get('data'));
     }
@@ -298,8 +302,8 @@ class Home extends BaseController
             }
         }
 
-        return view('navbar') 
-        .view('alltickets', ['tickets' => $data->data, 'quantities' => $quantities]);
+        return view('navbar')
+            . view('alltickets', ['tickets' => $data->data, 'quantities' => $quantities]);
     }
 
     public function cancelTicket($id)
@@ -315,10 +319,29 @@ class Home extends BaseController
         return redirect()->to('ticket/' . $id)->with('cancellationSuccess', 'Your Ticket Cancelled Succesfully!');
     }
 
+    public function downloadpdf($id)
+    {
+        $dompdf = new Dompdf();
+
+        $client = service('curlrequest', [
+            'baseURI' => 'http://localhost:4000/',
+        ]);
+
+        $response = $client->get('get-ticket/' . $id);
+
+        $data = json_decode($response->getBody());
+
+        $html = view('ticket', ['ticket' => $data->data]);
+        $dompdf->loadHtml($html);
+        $dompdf->setPaper('A4', 'Landscape');
+        $dompdf->render();
+        $dompdf->stream($data->data->movieName, ['Attachment' => false]);
+
+    }
 
     public function unauthorized()
     {
         return view('navbar')
-        .view('unauthorized');
+            . view('unauthorized');
     }
 }

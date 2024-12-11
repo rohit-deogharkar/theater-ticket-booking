@@ -1,55 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" style="font-family: 'Parkinsans', sans-serif;">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Your Ticket</title>
-
     <link rel="stylesheet" href="<?= base_url('/css/bootstrap.min.css') ?>">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Parkinsans:wght@300..800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css"
-        integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
+
     <style>
         body {
             background-color: #f4f4f4;
-            font-family: 'Parkinsans', sans-serif;
-        }
-
-        .ticket-container {
-            max-width: 600px;
-            margin: 50px auto;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        .ticket-header {
-            background-color: #dc3545;
-            color: white;
-            padding: 15px;
-        }
-
-        .ticket-body {
-            background-color: white;
-            padding: 20px;
-        }
-
-        .movie-poster {
-            max-width: 100%;
-            height: auto;
-            border-radius: 8px;
-        }
-
-        .ticket-details {
-            margin-top: 20px;
-        }
-
-        .qr-code {
-            max-width: 150px;
-            margin-top: 15px;
+            margin: 0;
+            padding: 0;
         }
 
         a {
@@ -59,140 +26,99 @@
     </style>
 </head>
 
-<body>
-    <nav class="navbar bg-light py-2 d-flex">
-        <div class="container px-3">
-            <span class="navbar-brand mb-0 h1 p-3 flex-grow-1">
-                <h4>TicketMax</h4>
-            </span>
-            <button class="btn btn-light"><a href="/"><i class="fa-solid fa-house"></i> Home</a></button>
-            <div class="dropdown border-0">
-                <button class="btn dropdown-toggle border-0 fs-6" type="button" data-bs-toggle="dropdown"
-                    aria-expanded="false">
-                    <span class="fs-6" style="text-align:center; font-size:5px;">
-                        <p style="margin:0px"><i class="fa-solid fa-user fs-6"></i></p>
-                        <span  style="font-size:14px;"><?= session('data')->email ?></span>
-                    </span>
-                </button>
-                <ul class="dropdown-menu text-center">
-                    <li class="p-1"> <a href="/showmytickets/<?= session('data')->_id ?>">My
-                            Tickets</a></li>
-                    <li class="p-1"><?= session('data') ? "<a href=\"/logout\" >Logout</a>" : "" ?>
-                    </li>
-                </ul>
-            </div>
-            <?= session('role') == 'admin' ? "<button><a href=\"/upload-form\" style=\"text-decoration:none\">Add Movie</a></button>" : "" ?>
-        </div>
-        <div>
-        </div>
-    </nav>
-    <div class="container ">
-        <div class="ticket-container border rounded-5">
-            <div class="ticket-header d-flex justify-content-between align-items-center">
-                <h3 class="mb-0">Movie Ticket</h3>
-                <span class="badge bg-light text-dark"> <?= $ticket->status ?></span>
-            </div>
-            <div class="ticket-body">
-                <div class="row">
-                    <div class="col-4">
-                        <img src="<?= base_url('pictures/' . $ticket->movieimage) ?>" alt="Movie Poster"
-                            class="movie-poster">
-                    </div>
-                    <div class="col-8">
-                        <h2 class="mb-3"><?= $ticket->movieName ?></h2>
-                        <div class="ticket-details">
-                            <div class="row mb-2">
-                                <div class="col-6">
-                                    <strong>Email: </strong>
-                                    <p class="mb-0"><?= $ticket->email ?></p>
-                                </div>
-                            </div>
-                            <div class="row mb-2">
-                                <div class="col-6">
-                                    <strong>Date:</strong>
-                                    <p class="mb-0">15 December 2024</p>
-                                </div>
-                                <div class="col-6">
-                                    <strong>Time:</strong>
-                                    <p class="mb-0">07:30 PM</p>
-                                </div>
-                            </div>
-                            <div class="row mb-2">
-                                <div class="col-12">
-                                    <strong>Theater:</strong>
-                                    <p class="mb-0">SlashRTC, Chandivali</p>
-                                </div>
-                            </div>
-                            <div class="row mb-2">
-                                <div class="col-6">
-                                    <strong>Screen:</strong>
-                                    <p class="mb-0">Screen 5</p>
-                                </div>
-                                <div class="col-6">
-                                    <strong>Seats:</strong>
-                                    <p class="mb-0">
-                                        <?= implode(",", $ticket->seats) ?>
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="row mb-2">
-                                <div class="col-6">
-                                    <strong>Ticket Type:</strong>
-                                    <p class="mb-0">Premium</p>
-                                </div>
-                                <div class="col-6">
-                                    <strong>Price</strong>
-                                    <p class="mb-0">Rs. <?= $ticket->price ?>/- </p>
-                                </div>
-                            </div>
-                        </div>
+<body style="font-family: 'Parkinsans', sans-serif;">
 
-                        <div class="text-center mt-3">
-                            <img src="<?= base_url('/images/qr.png') ?>" alt="QR Code" class="qr-code">
-                            <p class="text-muted small mt-2">Booking ID: BMS24681357</p>
-                        </div>
-                    </div>
-                </div>
+    <table width="50%" cellpadding="0" cellspacing="0"
+        style="background-color: #f4f4f4; max-width: 600px; margin: 50px auto; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); border-radius: 20px; overflow: hidden;">
+        <tr>
+            <td style="background-color: #dc3545; color: white; padding: 15px;">
+                <table width="100%" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td colspan="2" style="font-size: 20px; font-weight: bold;">Movie Ticket</td>
+                        <td colspan="1" style="color: #212529; border-radius: 5px; width:100px">
+                            <span
+                                style="font-weight: bold; background-color: #f8f9fa; width:100px; border-radius: 5px; padding:4px"><?= $ticket->status ?></span>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td style="background-color: white; padding: 20px;">
+                <table width="100%" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td width="33%" style="padding-right: 10px;">
+                            <img src="<?= base_url('pictures/' . $ticket->movieimage) ?>" alt="Movie Poster"
+                                style="max-width: 100%; border-radius: 8px;">
+                        </td>
+                        <td width="67%" style="vertical-align: top; padding-left: 10px;">
+                            <h2 style="margin: 0 0 15px 0;"><?= $ticket->movieName ?></h2>
 
-                <hr>
+                            <table width="100%" cellspacing="0" style="margin-top: 10px;">
+                                <tr>
+                                    <td width="10%" style="font-weight: bold;">Email:</td>
+                                    <td width="50%"><?= $ticket->email ?></td>
+                                </tr>
+                                <tr>
+                                    <td style="font-weight: bold;">Date:</td>
+                                    <td>15 December 2024</td>
+                                </tr>
+                                <tr>
+                                    <td style="font-weight: bold;">Time:</td>
+                                    <td>07:30 PM</td>
+                                <tr>
+                                    <td colspan="1" style="font-weight: bold;">Theater:</td>
+                                    <td colspan="2"> SlashRTC, Chandivali</td>
+                                </tr>
+                                <tr>
+                                    <td style="font-weight: bold;">Screen:</td>
+                                    <td>Screen 5</td>
+                                </tr>
+                                <tr>
+                                    <td style="font-weight: bold;">Seats:</td>
+                                    <td><?= implode(',', $ticket->seats) ?></td>
+                                </tr>
+                                <tr>
+                                    <td style="font-weight: bold; width:20%">Ticket Type:</td>
+                                    <td>Premium</td>
+                                </tr>
+                                <tr>
+                                    <td style="font-weight: bold;">Price:</td>
+                                    <td><?= $ticket->price ?></td>
+                                </tr>
+                            </table>
 
-                <div class="row text-center">
-                    <div class="col-12">
-                        <p class="text-muted small mb-0">
+
+                        </td>
+                    </tr>
+                </table>
+
+                <hr style="border: none; border-top: 1px solid #ddd; margin: 15px 0;">
+
+                <table width="100%" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td style="text-align: center; color: #6c757d; font-size: 0.8rem;">
                             Enjoy your movie! No outside food or drinks allowed.
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <?= $ticket->status == 'Confirmed' ?
-                "<div class=\"book-ticket d-flex items-center\">
-            <button onclick=\"confirmFunction()\" class=\"mx-auto btn btn-danger fs-5\"><a  href=\"/cancel-ticket/$ticket->_id\" style=\"text-decoration:none; color:white\">Cancel Ticket
-                </a></button>
-        </div>" : "";
-            ?>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
 
-        </div>
+        </tr>
+    </table>
 
-    </div>
 
-    <!-- Bootstrap 5.2 JS Bundle (optional) -->
-
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
-        integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
-        integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V"
-        crossorigin="anonymous"></script>
-
-    <script>
-
-        <?php if (session()->has('cancellationSuccess')): ?>
-            alert("<?= session()->getFlashdata('cancellationSuccess') ?>");
-        <?php endif; ?>
-
-        // addEventListener('popstate',()=>{location.reload()})
-
-    </script>
+    </td>
 </body>
+
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+    integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
+    crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
+    integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V"
+    crossorigin="anonymous"></script>
+
 
 </html>
