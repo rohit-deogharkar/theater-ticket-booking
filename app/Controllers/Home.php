@@ -2,6 +2,8 @@
 
 namespace App\Controllers;
 use Dompdf\Dompdf;
+use App\Controllers\LogsController;
+use CodeIgniter\I18n\Time;
 
 class Home extends BaseController
 {
@@ -258,6 +260,15 @@ class Home extends BaseController
         ]);
 
         $ticketresponse = json_decode($response->getBody());
+
+        $moviename = $ticketresponse->data->movieName;
+        $ticketSeats = $ticketresponse->data->seats;
+        $myTime = Time::now('Asia/Kolkata', 'en_US');
+        $actiondata = session('data')->email . " booked seats " . implode(",", $ticketSeats) . " for movie " . $moviename . " at " . explode         (" ", (string) $myTime)[1];
+
+        $logs = new LogsController();
+        $logs->updatelogactions(['action' => $actiondata]);
+
         session()->set('ticketbooked', 'ticketbooked success');
         return redirect()->to('ticket/' . $ticketresponse->data->_id);
 
@@ -339,6 +350,15 @@ class Home extends BaseController
 
         $data = json_decode($response->getBody());
 
+        $movieName = $data->ticketSatus->movieName;
+        $ticketSeats = $data->ticketSatus->seats;
+
+        $myTime = Time::now('Asia/Kolkata', 'en_US');
+        $actiondata = session('data')->email . " cancelled seats " . implode(",", $ticketSeats) . " for movie " . $movieName . " at " . explode(" ", (string) $myTime)[1];
+
+        $logs = new LogsController();
+        $logs->updatelogactions(['action' => $actiondata]);
+
         return redirect()->to('ticket/' . $id)->with('cancellationSuccess', 'Your Ticket Cancelled Succesfully!');
     }
 
@@ -372,7 +392,7 @@ class Home extends BaseController
 
         $data = json_decode($response->getBody());
 
-        foreach($data->data as $datas){
+        foreach ($data->data as $datas) {
             echo $datas->movieName . "<br>";
         }
     }

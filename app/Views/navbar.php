@@ -19,6 +19,7 @@
                 </li>
                 <?= session('role') == 'admin' ? '<li class="p-1"><a href="/upload-form" style="text-decoration:none">Add Movie</a></li>' : "" ?>
                 <?= session('role') == 'admin' ? '<li class="p-1"><a href="/alltickets" style="text-decoration:none">View All Tickets</a></li>' : "" ?>
+                <?= session('role') == 'admin' ? '<li class="p-1"><a href="/logs" style="text-decoration:none">View Logs</a></li>' : "" ?>
                 <li class="p-1"><?= session('data') ? "<a href=\"/logout\" >Logout</a>" : "" ?>
                 </li>
             </ul>

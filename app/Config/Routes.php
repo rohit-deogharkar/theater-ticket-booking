@@ -32,7 +32,7 @@ $routes->get('/booking/(:any)', 'Home::booking/$1', ['filter' => 'rolecheck:user
 $routes->get('/postbooking', "Home::postBooking", ['filter' => 'rolecheck:user']);
 $routes->get('/showmytickets/(:any)', "Home::getmytickets/$1", ['filter' => 'rolecheck:user']);
 $routes->get('/cancel-ticket/(:any)', "Home::cancelTicket/$1", ['filter' => 'rolecheck:user']);
-$routes->get('/userspecificseats/(:any)', "Home::userspecificseats/$1",['filter' => 'rolecheck:user']);
+$routes->get('/userspecificseats/(:any)', "Home::userspecificseats/$1", ['filter' => 'rolecheck:user']);
 
 //admin specific routes
 
@@ -42,4 +42,11 @@ $routes->get('/updateMovieDetails/(:segment)', 'Home::updateMovieDetails/$1', ['
 $routes->post('/postupdate/(:segment)', 'Home::postUpdate/$1', ['filter' => 'rolecheck:admin']);
 $routes->get('/deletemovie/(:segment)', "Home::deleteMovie/$1", ['filter' => 'rolecheck:admin']);
 $routes->get('/alltickets', 'Home::alltickets', ['filter' => 'rolecheck:admin']);
+$routes->get('/logs', "LogsController::viewlogs", ['filter' => 'rolecheck:admin']);
+$routes->get('/specificlog/(:any)', "LogsController::specificlog/$1", ['filter' => 'rolecheck:admin']);
+$routes->get('/forcelogout/(:any)', "LogsController::forcelogout/$1", ['filter' => 'rolecheck:admin']);
+
+//logroutes
+
+// $routes->get('/addlog', "LogsController::postlog", ['filter' => 'rolecheck:user,admin']);
 
